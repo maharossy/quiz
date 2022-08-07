@@ -30,3 +30,22 @@ const questions = [
 		correct: 2,
 	},
 ];
+
+// Find elements
+const headerContainer = document.querySelector('#header'),
+	  listContainer = document.querySelector('#list'),
+	  submitBtn = document.querySelector('#submit');
+	  
+
+// Game variables
+let questionindex = 0,
+	score = 0;
+
+
+clearPage();
+
+// Clear html page
+function clearPage() {
+	headerContainer.innerHTML = '';
+	listContainer.innerHTML = '';
+}	
