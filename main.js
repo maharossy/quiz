@@ -43,9 +43,25 @@ let questionindex = 0,
 
 
 clearPage();
+showQuestion()
 
 // Clear html page
 function clearPage() {
 	headerContainer.innerHTML = '';
 	listContainer.innerHTML = '';
 }	
+
+function showQuestion() {
+	// Question
+	const headerTemplate = `
+		<h2 class="title">%title%</h2>
+	`
+	const title = headerTemplate.replace('%title%', questions[questionindex]['question']);
+	headerContainer.innerHTML = title;
+
+	// Answer options
+	for (item of questions[questionindex]['answers']) {
+		console.log(item);
+	}
+	
+}
