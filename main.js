@@ -43,7 +43,7 @@ let questionindex = 0,
 
 
 clearPage();
-showQuestion()
+showQuestion();
 
 // Clear html page
 function clearPage() {
@@ -60,8 +60,49 @@ function showQuestion() {
 	headerContainer.innerHTML = title;
 
 	// Answer options
-	for (item of questions[questionindex]['answers']) {
-		console.log(item);
+	let answerNumber = 1;
+	for (answerText of questions[questionindex]['answers']) {
+		const questionTemplate = `
+			<li>
+				<label>
+					<input value="%number%" type="radio" class="answer" name="answer" />
+					<span>%answer%</span>
+				</label>
+			</li>
+		`;
+
+		const answerHTML = questionTemplate.replace('%answer%', answerText)
+										   .replace('%number%', answerNumber);
+
+		listContainer.innerHTML += answerHTML;
+		answerNumber++;
 	}
+
+	function checkAnswer() {
+
+		console.log('start');
+		// find the selected radio btn
+		const checkedRadio = listContainer.querySelector('input[type="radio"]:checked');
+
+		console.log(checkedRadio);
+	}
+
+	submitBtn.addEventListener('click', () => {
+		function checkAnswer() {
+			// find the selected radio btn
+			const checkedRadio = listContainer.querySelector('input[type="radio"]:checked');
+
+			// If the answer is not selected - do nothing, exit the function
+			if (!checkedRadio) {
+				submitBtn.blur();
+				return;	
+			}
+		}
+
+		
+
+		checkAnswer();
+
+	});
 	
 }
