@@ -80,14 +80,14 @@ function showQuestion() {
 
 	function checkAnswer() {
 
-		console.log('start');
 		// find the selected radio btn
 		const checkedRadio = listContainer.querySelector('input[type="radio"]:checked');
 
-		console.log(checkedRadio);
 	}
 
 	submitBtn.addEventListener('click', () => {
+		checkAnswer();
+
 		function checkAnswer() {
 			// find the selected radio btn
 			const checkedRadio = listContainer.querySelector('input[type="radio"]:checked');
@@ -97,11 +97,36 @@ function showQuestion() {
 				submitBtn.blur();
 				return;	
 			}
+
+			// Number answer user
+			const userAnswer = parseInt(checkedRadio.value);
+
+			// If the answer is correct, we increase the score
+			const correctAnswer = questions[questionindex]['correct'];
+
+			if (userAnswer === correctAnswer) {
+				score++;
+			}
+
+			if (questionindex !== questions.length - 1) {
+				console.log('not finish');
+				questionindex++;
+				clearPage();
+				showQuestion();
+				return;
+			} else {
+				clearPage();
+				showResults();
+			}
+		}
+
+		function showResults() {
+			console.log('Scoreee!');
 		}
 
 		
 
-		checkAnswer();
+		
 
 	});
 	
