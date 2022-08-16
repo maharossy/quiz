@@ -44,6 +44,7 @@ let questionindex = 0,
 
 clearPage();
 showQuestion();
+// showResults();
 
 // Clear html page
 function clearPage() {
@@ -119,15 +120,47 @@ function showQuestion() {
 				showResults();
 			}
 		}
+	});
 
-		function showResults() {
-			console.log('Scoreee!');
+	function showResults() {
+		// Result quiz
+		const resultTemplate = `
+			<h2 class="title">%title%</h2>
+			<h3 class="summary">%message%</h3>
+			<p class="result">%result%</p>
+		`;
+
+		let title, message;
+
+		// Heading and text options
+		if (score === questions.length) {
+			title = 'Поздравляем!';
+			message = 'Вы ответили на все вопросы!'
+		} else if ((score * 100) / questions.length >= 50) {
+			title = 'плохой результат!';
+			message = 'Вы дали более половины правильных ответов!';
+		} else {
+			title = 'Стоит постараться';
+			message = 'Пока у вас меньше половины правильных ответов';
 		}
 
-		
+		// Result
+		let result = `${score} из ${questions.length}`;
 
-		
+		// The final answer is we substitute the data in the template
+		const finalMessage = resultTemplate
+							.replace('%title%', title)
+							.replace('%message%', message)
+							.replace('%result%', result)
 
-	});
+		headerContainer.innerHTML = finalMessage;	
+
+		// Change the button to "Start over"
+		submitBtn.blur();
+		submitBtn.innerText = 'Начать заново';
+		submitBtn.onclick = () => history.go();
+	}
+
+	
 	
 }
